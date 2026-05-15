@@ -9,7 +9,7 @@
   <Properties>
     <DisplayName>Network Priority Manager</DisplayName>
     <PublisherDisplayName>NetworkPriorityManager</PublisherDisplayName>
-    <Logo>favicon.ico</Logo>
+    <Logo>StoreLogo.png</Logo>
   </Properties>
   <Dependencies>
     <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.17763.0" MaxVersionTested="10.0.26100.0" />
@@ -25,9 +25,9 @@
       <uap:VisualElements DisplayName="Network Priority Manager"
                           Description="Set network adapter priority"
                           BackgroundColor="transparent"
-                          Square150x150Logo="favicon.ico"
-                          Square44x44Logo="favicon.ico">
-        <uap:DefaultTile Wide310x150Logo="favicon.ico" />
+                          Square150x150Logo="Square150x150Logo.png"
+                          Square44x44Logo="Square44x44Logo.png">
+        <uap:DefaultTile Wide310x150Logo="Wide310x150Logo.png" />
       </uap:VisualElements>
     </Application>
   </Applications>

@@ -8,6 +8,7 @@
     <UseWinUI>true</UseWinUI>
     <EnableMsixTooling>true</EnableMsixTooling>
     <WindowsPackageType>MSIX</WindowsPackageType>
+    <GenerateAppxPackageOnBuild>true</GenerateAppxPackageOnBuild>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <Platforms>x86;x64;ARM64</Platforms>
     <RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
@@ -17,5 +18,9 @@
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.6.*" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.*" />
     <Content Include="favicon.ico" />
+    <Content Include="StoreLogo.png" />
+    <Content Include="Square150x150Logo.png" />
+    <Content Include="Square44x44Logo.png" />
+    <Content Include="Wide310x150Logo.png" />
   </ItemGroup>
 </Project>
