@@ -5,8 +5,7 @@
          IgnorableNamespaces="uap rescap">
   <Identity Name="NetworkPriorityManager"
             Publisher="CN=NetworkPriorityManager"
-            Version="1.0.0.0"
-            ProcessorArchitecture="x64" />
+            Version="1.0.0.0" />
   <Properties>
     <DisplayName>Network Priority Manager</DisplayName>
     <PublisherDisplayName>NetworkPriorityManager</PublisherDisplayName>
