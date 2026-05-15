@@ -121,12 +121,19 @@ namespace NetworkPriorityManager
         {
             try
             {
+                if (!System.Text.RegularExpressions.Regex.IsMatch(adapterName, @"^[\w\s\-\.]+$"))
+                {
+                    throw new ArgumentException("适配器名称包含非法字符", nameof(adapterName));
+                }
+
                 ProcessStartInfo startInfo = new ProcessStartInfo
                 {
                     FileName = "netsh",
                     Arguments = $"interface ipv4 set interface \"{adapterName}\" metric={metric}",
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
+                    StandardOutputEncoding = System.Text.Encoding.UTF8,
+                    StandardErrorEncoding = System.Text.Encoding.UTF8,
                     UseShellExecute = false,
                     CreateNoWindow = true
                 };
