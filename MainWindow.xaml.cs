@@ -23,7 +23,7 @@ namespace NetworkPriorityManager
 
             ExtendsContentIntoTitleBar = true;
             SetTitleBar(AppTitleBar);
-            this.SystemBackdrop = new Microsoft.UI.Composition.SystemBackdrops.MicaBackdrop();
+            this.SystemBackdrop = new MicaBackdrop();
 
             m_AppWindow = this.AppWindow;
             m_AppWindow.SetIcon("favicon.ico");
