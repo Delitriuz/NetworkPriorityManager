@@ -8,11 +8,12 @@ namespace NetworkPriorityManager
 
         public App()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
+            _ = args;
             m_window = new MainWindow();
             m_window.Activate();
         }
