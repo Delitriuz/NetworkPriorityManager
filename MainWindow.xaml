@@ -1,0 +1,53 @@
+<Window
+    x:Class="NetworkPriorityManager.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Network Priority Manager">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="AppTitleBar" Height="48">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="LeftPaddingColumn" Width="0"/>
+                <ColumnDefinition/>
+                <ColumnDefinition x:Name="RightPaddingColumn" Width="0"/>
+            </Grid.ColumnDefinitions>
+            <Image x:Name="TitleBarIcon"
+                   Source="ms-appx:///favicon.ico"
+                   Grid.Column="1"
+                   HorizontalAlignment="Left"
+                   Width="16" Height="16"
+                   Margin="16,0,0,0"/>
+            <TextBlock x:Name="TitleBarTextBlock"
+                       Text="Network Priority Manager"
+                       Style="{StaticResource CaptionTextBlockStyle}"
+                       Grid.Column="1"
+                       VerticalAlignment="Center"
+                       Margin="40,0,0,0"/>
+        </Grid>
+
+        <StackPanel Grid.Row="1" Padding="24,16" Spacing="12">
+            <TextBlock Text="选择网络适配器:"/>
+            <ComboBox x:Name="AdapterComboBox"/>
+
+            <TextBlock Text="设置优先级（整数）："/>
+            <TextBox x:Name="PriorityTextBox" Text="10"/>
+
+            <StackPanel Orientation="Horizontal" Spacing="12">
+                <Button x:Name="SetPriorityButton"
+                        Content="设置优先级"
+                        Style="{StaticResource AccentButtonStyle}"
+                        Click="SetPriorityButton_Click"/>
+                <Button x:Name="RestoreDefaultButton"
+                        Content="恢复默认"
+                        Click="RestoreDefaultButton_Click"/>
+            </StackPanel>
+
+            <TextBlock x:Name="StatusTextBlock" Text="等待操作..."/>
+        </StackPanel>
+    </Grid>
+</Window>
