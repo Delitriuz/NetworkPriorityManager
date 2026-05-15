@@ -15,22 +15,22 @@ namespace NetworkPriorityManager
     public sealed partial class MainWindow : Window
     {
         private List<NetworkInterface> _adapters = new List<NetworkInterface>();
-        private AppWindow m_AppWindow = null!;
+        private AppWindow _appWindow = null!;
 
         public MainWindow()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             ExtendsContentIntoTitleBar = true;
             SetTitleBar(AppTitleBar);
-            this.SystemBackdrop = new MicaBackdrop();
+            SystemBackdrop = new MicaBackdrop();
 
-            m_AppWindow = this.AppWindow;
-            m_AppWindow.SetIcon("favicon.ico");
+            _appWindow = AppWindow;
+            _appWindow.SetIcon("favicon.ico");
 
             if (AppWindowTitleBar.IsCustomizationSupported())
             {
-                var titleBar = m_AppWindow.TitleBar;
+                var titleBar = _appWindow.TitleBar;
                 titleBar.ButtonBackgroundColor = Colors.Transparent;
                 titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
             }
@@ -42,8 +42,8 @@ namespace NetworkPriorityManager
 
         private void SetFixedWindowSize(int width, int height)
         {
-            m_AppWindow.Resize(new SizeInt32(width, height));
-            if (m_AppWindow.Presenter is OverlappedPresenter presenter)
+            _appWindow.Resize(new SizeInt32(width, height));
+            if (_appWindow.Presenter is OverlappedPresenter presenter)
             {
                 presenter.IsResizable = false;
                 presenter.IsMaximizable = false;
@@ -54,7 +54,7 @@ namespace NetworkPriorityManager
         {
             _adapters = NetworkInterface.GetAllNetworkInterfaces()
                 .Where(ni => ni.OperationalStatus == OperationalStatus.Up &&
-                             !ni.Name.ToLower().Contains("loopback"))
+                             !ni.Name.Contains("loopback", StringComparison.OrdinalIgnoreCase))
                 .ToList();
 
             AdapterComboBox.Items.Clear();
