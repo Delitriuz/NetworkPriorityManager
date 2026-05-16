@@ -13,7 +13,7 @@
     <Platforms>x86;x64;ARM64</Platforms>
     <RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
     <ApplicationIcon>favicon.ico</ApplicationIcon>
-    <PackageCertificateThumbprint>80F3D1967B57ADBC07096EDF4E62BCCC62CAC1CF</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>88193F304E184E7334AD05F7FE6E4EB06CC7F66B</PackageCertificateThumbprint>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.6.*" />
