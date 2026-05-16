@@ -36,6 +36,7 @@
 
             <TextBlock Text="设置优先级（整数）："/>
             <TextBox x:Name="PriorityTextBox" Text="10"/>
+            <TextBlock Text="数值越小优先级越高，0 为系统自动" FontSize="12" Opacity="0.6"/>
 
             <StackPanel Orientation="Horizontal" Spacing="12">
                 <Button x:Name="SetPriorityButton"

@@ -47,6 +47,21 @@ namespace NetworkPriorityManager
         {
             InitializeComponent();
 
+            // Auto-elevate to administrator if not already
+            if (!IsAdmin())
+            {
+                try
+                {
+                    RestartAsAdmin();
+                    Application.Current.Exit();
+                    return;
+                }
+                catch (Exception ex)
+                {
+                    Log($"Auto-elevation failed: {ex.Message}");
+                }
+            }
+
             ExtendsContentIntoTitleBar = true;
             SetTitleBar(AppTitleBar);
             SystemBackdrop = new MicaBackdrop();
@@ -67,7 +82,27 @@ namespace NetworkPriorityManager
 
             Log("=== Application started ===");
             Log($"OS: {Environment.OSVersion}");
-            Log($"IsAdmin: {new System.Security.Principal.WindowsPrincipal(System.Security.Principal.WindowsIdentity.GetCurrent()).IsInRole(System.Security.Principal.WindowsBuiltInRole.Administrator)}");
+            Log($"IsAdmin: {IsAdmin()}");
+        }
+
+        private static bool IsAdmin()
+        {
+            return new System.Security.Principal.WindowsPrincipal(
+                System.Security.Principal.WindowsIdentity.GetCurrent())
+                .IsInRole(System.Security.Principal.WindowsBuiltInRole.Administrator);
+        }
+
+        private static void RestartAsAdmin()
+        {
+            string exePath = Process.GetCurrentProcess().MainModule?.FileName
+                ?? throw new InvalidOperationException("Cannot get executable path");
+
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = exePath,
+                UseShellExecute = true,
+                Verb = "runAs"
+            });
         }
 
         private void SetFixedWindowSize(int width, int height)
