@@ -17,6 +17,15 @@ namespace NetworkPriorityManager
         private List<NetworkInterface> _adapters = new List<NetworkInterface>();
         private AppWindow _appWindow = null!;
 
+        private static Brush? GetBrush(string key)
+        {
+            if (App.Current.Resources.TryGetValue(key, out object? value) && value is Brush brush)
+            {
+                return brush;
+            }
+            return null;
+        }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -74,14 +83,14 @@ namespace NetworkPriorityManager
                 if (AdapterComboBox.SelectedIndex == -1)
                 {
                     StatusTextBlock.Text = "⚠️ 请选择一个网络适配器";
-                    StatusTextBlock.Foreground = (SolidColorBrush)App.Current.Resources["SystemFillColorCriticalBrush"];
+                    StatusTextBlock.Foreground = GetBrush("SystemFillColorCriticalBrush") ?? new SolidColorBrush(Colors.Red);
                     return;
                 }
 
                 if (!int.TryParse(PriorityTextBox.Text, out int metric) || metric < 0)
                 {
                     StatusTextBlock.Text = "⚠️ 优先级必须是非负整数";
-                    StatusTextBlock.Foreground = (SolidColorBrush)App.Current.Resources["SystemFillColorCriticalBrush"];
+                    StatusTextBlock.Foreground = GetBrush("SystemFillColorCriticalBrush") ?? new SolidColorBrush(Colors.Red);
                     return;
                 }
 
@@ -102,7 +111,7 @@ namespace NetworkPriorityManager
                 if (AdapterComboBox.SelectedIndex == -1)
                 {
                     StatusTextBlock.Text = "⚠️ 请选择一个网络适配器";
-                    StatusTextBlock.Foreground = (SolidColorBrush)App.Current.Resources["SystemFillColorCriticalBrush"];
+                    StatusTextBlock.Foreground = GetBrush("SystemFillColorCriticalBrush") ?? new SolidColorBrush(Colors.Red);
                     return;
                 }
 
@@ -148,12 +157,12 @@ namespace NetworkPriorityManager
                     if (process.ExitCode == 0)
                     {
                         StatusTextBlock.Text = $"✅ {adapterName} 的优先级已设置为 {metric}";
-                        StatusTextBlock.Foreground = (SolidColorBrush)App.Current.Resources["SystemFillColorSuccessBrush"];
+                        StatusTextBlock.Foreground = GetBrush("SystemFillColorSuccessBrush") ?? new SolidColorBrush(Colors.Green);
                     }
                     else
                     {
                         StatusTextBlock.Text = $"❌ 错误: {error.Trim()}";
-                        StatusTextBlock.Foreground = (SolidColorBrush)App.Current.Resources["SystemFillColorCriticalBrush"];
+                        StatusTextBlock.Foreground = GetBrush("SystemFillColorCriticalBrush") ?? new SolidColorBrush(Colors.Red);
                     }
                 }
             }
@@ -169,12 +178,12 @@ namespace NetworkPriorityManager
             if (args.WindowActivationState == WindowActivationState.Deactivated)
             {
                 TitleBarTextBlock.Foreground =
-                    (SolidColorBrush)App.Current.Resources["WindowCaptionForegroundDisabled"];
+                    GetBrush("WindowCaptionForegroundDisabled") ?? new SolidColorBrush(Colors.Gray);
             }
             else
             {
                 TitleBarTextBlock.Foreground =
-                    (SolidColorBrush)App.Current.Resources["WindowCaptionForeground"];
+                    GetBrush("WindowCaptionForeground") ?? new SolidColorBrush(Colors.Black);
             }
         }
     }
