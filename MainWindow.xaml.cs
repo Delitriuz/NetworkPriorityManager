@@ -47,21 +47,6 @@ namespace NetworkPriorityManager
         {
             InitializeComponent();
 
-            // Auto-elevate to administrator if not already
-            if (!IsAdmin())
-            {
-                try
-                {
-                    RestartAsAdmin();
-                    Application.Current.Exit();
-                    return;
-                }
-                catch (Exception ex)
-                {
-                    Log($"Auto-elevation failed: {ex.Message}");
-                }
-            }
-
             ExtendsContentIntoTitleBar = true;
             SetTitleBar(AppTitleBar);
             SystemBackdrop = new MicaBackdrop();
@@ -79,6 +64,7 @@ namespace NetworkPriorityManager
             SetFixedWindowSize(540, 380);
             Activated += MainWindow_Activated;
             LoadAdapters();
+            CheckAdminStatus();
 
             Log("=== Application started ===");
             Log($"OS: {Environment.OSVersion}");
@@ -92,17 +78,23 @@ namespace NetworkPriorityManager
                 .IsInRole(System.Security.Principal.WindowsBuiltInRole.Administrator);
         }
 
-        private static void RestartAsAdmin()
+        private void CheckAdminStatus()
         {
-            string exePath = Process.GetCurrentProcess().MainModule?.FileName
-                ?? throw new InvalidOperationException("Cannot get executable path");
-
-            Process.Start(new ProcessStartInfo
+            if (!IsAdmin())
             {
-                FileName = exePath,
-                UseShellExecute = true,
-                Verb = "runAs"
-            });
+                AdminWarningTextBlock.Visibility = Microsoft.UI.Xaml.Visibility.Visible;
+                SetPriorityButton.IsEnabled = false;
+                RestoreDefaultButton.IsEnabled = false;
+                StatusTextBlock.Text = "⚠️ 未以管理员身份运行，操作已禁用";
+                StatusTextBlock.Foreground = new SolidColorBrush(Colors.Orange);
+                Log("WARNING: Not running as administrator");
+            }
+            else
+            {
+                AdminWarningTextBlock.Visibility = Microsoft.UI.Xaml.Visibility.Collapsed;
+                SetPriorityButton.IsEnabled = true;
+                RestoreDefaultButton.IsEnabled = true;
+            }
         }
 
         private void SetFixedWindowSize(int width, int height)
